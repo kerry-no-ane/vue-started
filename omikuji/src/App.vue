@@ -1,48 +1,33 @@
 <template>
   <div id="app">
     <h1>今日は定時退社できるかなー？</h1>
-    <button name="myBtn" @click="uranau">占う！</button>
-    <p class="font">{{ text }}</p>
+    <uranaiButton :text="buttonText" @result="kekka" />
+    <resultArea :src="src" :text="text" />
   </div>
 </template>
 
 <script>
+import uranaiButton from "@/components/UranaiButton"
+import resultArea from "@/components/ResultArea"
+
 export default {
   name: "App",
+  components: {
+    uranaiButton,
+    resultArea
+  },
   data: () => ({
-    result: "./img/dokidoki.jpg",
+    src: "dokidoki.jpg",
     text: "どきどき・・・",
-    resultList: [
-      {
-        text: "明日の自分がなんとかしてくれるので、今日は定時で帰ろう"
-      },
-      {
-        text: "みんなで協力して上司を倒せ！！"
-      },
-      {
-        text:
-          "会社で寝泊まりすれば、定時とか関係ないんじゃ・・・！（とか思わず、帰ろう）"
-      },
-      {
-        text: "しつこく定時に帰りますアピールをしておこう"
-      },
-      {
-        text: "帰らせてくれないならバイオテロだ！"
-      },
-      {
-        text: "帰れないから、残業自慢しようぜ！"
-      }
-    ]
+    buttonText: "頼む！定時退社させてくれ！"
   }),
   methods: {
-    uranau: function() {
-      let result = this.resultList[
-        Math.floor(Math.random() * this.resultList.length)
-      ];
-
+    kekka: function (result) {
+      this.src = result.src;
       this.text = result.text;
+      this.buttonText = result.buttonText
     }
-  }
+  },
 };
 </script>
 <style>
